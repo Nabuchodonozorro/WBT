@@ -34,12 +34,14 @@
 
     <style>
         /* Premium Neon Glow Effects */
-        .neon-red { 
-            text-shadow: 0 0 5px #fff, 0 0 15px #ff003c, 0 0 30px #ff003c, 0 0 50px #ff003c; 
-        }
-        .neon-green { 
-            text-shadow: 0 0 5px #fff, 0 0 15px #00ff41, 0 0 30px #00ff41, 0 0 50px #00ff41; 
-        }
+       .neon-red { 
+        color: #ffffff !important;
+        text-shadow: 0 0 2px #fff, 0 0 8px #ff003c, 0 0 16px #ff003c, 0 0 30px #ff003c; 
+    }
+    .neon-green { 
+        color: #ffffff !important;
+        text-shadow: 0 0 2px #fff, 0 0 8px #00ff41, 0 0 16px #00ff41, 0 0 30px #00ff41; 
+    }
         .neon-white { 
             text-shadow: 0 0 5px #fff, 0 0 15px #ccc, 0 0 25px #ffffff; 
         }
@@ -56,8 +58,8 @@
     <nav class="fixed top-0 left-0 w-full z-50 bg-pub-dark/70 backdrop-blur-xl border-b border-white/5 py-4 transition-all" aria-label="Main Navigation">
         <div class="container mx-auto px-6 flex justify-between items-center text-sm font-oswald uppercase relative">
             
-            <a href="#top" class="text-2xl font-bold tracking-[0.2em] hover:text-pub-red transition-colors">
-   				 <span class="text-pub-red neon-red">WBT</span> <span class="text-white">SPORTS</span> <span class="text-pub-green neon-green">PUB</span>
+           <a href="#top" class="text-2xl font-bold tracking-[0.2em] transition-colors">
+    <span class="neon-red">WBT</span> <span class="text-white">SPORTS</span> <span class="neon-green">PUB</span>
 </a>
             
             <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-pub-red transition-colors focus:outline-none z-50 p-2" aria-label="Toggle menu" aria-expanded="false">
