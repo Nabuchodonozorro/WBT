@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WBT Sports Pub | Najlepsza Mordownia w Gminie</title>
+    <meta name="description" content="WBT Sports Pub - Najlepsza mordownia w gminie. Transmisje na żywo, bilard, dart i świetna atmosfera.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    fontFamily: { 
+                        oswald: ['Oswald', 'sans-serif'], 
+                        roboto: ['Roboto', 'sans-serif'], 
+                    }, 
+                    colors: { 
+                        'pub-dark': '#050505',   /* Prawdziwa czerń z głębią */
+                        'pub-menu': '#0f0f13',   /* Bardzo ciemny grafit */
+                        'pub-red': '#ff003c',    /* Neonowa Czerwień */
+                        'pub-green': '#00ff41',  /* Neonowa Zieleń */
+                        'pub-white': '#f8f9fa'   /* Czysta Biel */
+                    },
+                    backgroundImage: {
+                        'glow-red': 'radial-gradient(circle at top center, rgba(255, 0, 60, 0.15), transparent 60%)',
+                        'glow-green': 'radial-gradient(circle at bottom right, rgba(0, 255, 65, 0.1), transparent 50%)',
+                    }
+                } 
+            } 
+        }
+    </script>
+
+    <style>
+        /* Premium Neon Glow Effects */
+        .neon-red { 
+            text-shadow: 0 0 5px #fff, 0 0 15px #ff003c, 0 0 30px #ff003c, 0 0 50px #ff003c; 
+        }
+        .neon-green { 
+            text-shadow: 0 0 5px #fff, 0 0 15px #00ff41, 0 0 30px #00ff41, 0 0 50px #00ff41; 
+        }
+        .neon-white { 
+            text-shadow: 0 0 5px #fff, 0 0 15px #ccc, 0 0 25px #ffffff; 
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        #carousel-track { touch-action: pan-y; } 
+    </style>
+</head>
+<body id="top" class="font-roboto bg-pub-dark text-gray-300 antialiased selection:bg-pub-red selection:text-white">
+
+    <div class="fixed inset-0 bg-glow-red pointer-events-none z-0"></div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-pub-dark/70 backdrop-blur-xl border-b border-white/5 py-4 transition-all" aria-label="Main Navigation">
+        <div class="container mx-auto px-6 flex justify-between items-center text-sm font-oswald uppercase relative">
+            
+            <a href="#top" class="text-2xl font-bold tracking-[0.2em] hover:text-pub-red transition-colors duration-300 focus:outline-none">
+                <span class="text-pub-red neon-red">WBT</span> <span class="text-white">SPORTS PUB</span>
+            </a>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-pub-red transition-colors focus:outline-none z-50 p-2" aria-label="Toggle menu" aria-expanded="false">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <div id="mobile-menu" class="hidden md:flex absolute md:static top-full left-0 w-full md:w-auto bg-pub-dark/95 md:bg-transparent backdrop-blur-3xl md:backdrop-blur-none flex-col md:flex-row items-center gap-8 py-10 md:py-0 border-b border-white/10 md:border-none shadow-2xl md:shadow-none transition-all duration-300">
+                <a href="#menu" class="text-gray-400 hover:text-white transition-colors mobile-link tracking-[0.15em]">Menu</a>
+                <a href="#wydarzenia" class="text-gray-400 hover:text-white transition-colors mobile-link tracking-[0.15em]">Wydarzenia</a>
+                <a href="#dojazd" class="text-gray-400 hover:text-white transition-colors mobile-link tracking-[0.15em]">Jak dojechać?</a>
+                <a href="#rezerwacja" class="group relative px-6 py-2 tracking-[0.15em] mobile-link">
+                    <span class="absolute inset-0 bg-pub-red/20 blur-sm rounded transition-all duration-300 group-hover:bg-pub-red/40"></span>
+                    <span class="absolute inset-0 border border-pub-red rounded transition-all duration-300 group-hover:border-pub-red/80"></span>
+                    <span class="relative text-pub-red group-hover:text-white transition-colors duration-300">ZAREZERWUJ</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const links = document.querySelectorAll('.mobile-link');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            });
+
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 768) { 
+                        menu.classList.add('hidden');
+                        menu.classList.remove('flex');
+                    }
+                });
+            });
+        });
+    </script>
+
+<header class="relative pt-32 md:pt-48 pb-24 border-b-4 border-pub-red overflow-hidden z-10">
+        
+        <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('images/header_background.png');">
+            <div class="absolute inset-0 bg-pub-dark/60 z-10"></div>
+        </div>
+
+        <div class="container mx-auto text-center px-4 relative z-10 flex flex-col items-center justify-center">
+            
+           <div class="mb-10 w-full max-w-xl flex justify-center relative">
+                
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] md:w-[480px] h-[220px] md:h-[320px] bg-black blur-3xl rounded-[100%] z-0 opacity-100 pointer-events-none"></div>
+
+                <img src="images/LOGO-transparent.png" alt="WBT Sports Pub Logo" class="relative z-10 w-full max-w-[280px] md:max-w-[400px] h-auto mix-blend-screen drop-shadow-[0_0_20px_rgba(255,255,255,0.2)] translate-y-12">
+                
+            </div>
+
+            <h1 class="sr-only">WBT SPORTS PUB</h1>
+            
+            <p class="font-oswald text-xl md:text-2xl tracking-[0.3em] text-white/90 uppercase">Najlepsza Mordownia w Gminie</p>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section id="wydarzenia" class="relative w-full overflow-hidden flex flex-col items-center">
+            
+            <div class="absolute inset-0 bg-glow-green pointer-events-none z-0"></div>
+
+            <div class="w-full max-w-[1400px] flex flex-col lg:flex-row relative z-10">
+                
+                <article class="w-full lg:w-3/5 px-6 lg:pl-12 lg:pr-24 pt-24 pb-32 md:pb-40 flex flex-col justify-start">
+                    <h3 class="font-oswald text-sm tracking-[0.3em] text-pub-red mb-12 uppercase">Nadchodzące Wydarzenia</h3>
+                    
+                    <div class="flex flex-col border-t border-white/10">
+                        <div class="group flex flex-col md:flex-row items-start py-8 border-b border-white/10 hover:bg-white/[0.02] transition-colors rounded-lg cursor-default">
+                            <div class="w-40 font-oswald font-bold text-2xl tracking-[0.1em] text-white/50 group-hover:text-pub-red transition-colors pt-1">DZISIAJ</div>
+                            <div class="flex-1">
+                                <h4 class="font-oswald text-3xl tracking-wide text-white mb-2"><time datetime="20:45" class="text-pub-red">20:45</time> LIGA MISTRZÓW - 1/4 FINAŁU</h4>
+                                <p class="text-gray-500 font-light text-lg">GKS Jełopowice vs. FC BlackRock Karczew</p>
+                            </div>
+                        </div>
+                        
+                        <div class="group flex flex-col md:flex-row items-start py-8 border-b border-white/10 hover:bg-white/[0.02] transition-colors rounded-lg cursor-default">
+                            <div class="w-40 font-oswald font-bold text-2xl tracking-[0.1em] text-white/50 group-hover:text-pub-red transition-colors pt-1">JUTRO</div>
+                            <div class="flex-1">
+                                <h4 class="font-oswald text-3xl tracking-wide text-white mb-2">XII TURNIEJ 9-BALL</h4>
+                                <p class="text-gray-500 font-light text-lg">Start: <time datetime="14:58" class="text-white">14:58</time> | Wpisowe: 4 szekle | Zapisy: <span class="text-pub-red">0-700-880-774</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="group flex flex-col md:flex-row items-start py-8 border-b border-white/10 hover:bg-white/[0.02] transition-colors rounded-lg cursor-default">
+                            <div class="w-40 font-oswald font-bold text-2xl tracking-[0.1em] text-white/50 group-hover:text-pub-red transition-colors pt-1"><time datetime="12-31">31.12</time></div>
+                            <div class="flex-1">
+                                <h4 class="font-oswald text-3xl tracking-wide text-white mb-2">IMIENINY STRYJA</h4>
+                                <p class="text-gray-500 font-light text-lg">Piwo z beczki: 6,50 zł / 116 ml.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <aside class="w-full lg:w-2/5 bg-pub-menu/50 backdrop-blur-2xl border-l border-white/5 text-white px-8 lg:px-16 pt-24 pb-32 md:pb-40 flex flex-col justify-start relative">
+                    
+                    <div class="relative z-10 w-full max-w-sm mx-auto">
+                        <div id="pub-status" class="flex flex-col items-center justify-center gap-2 mb-12 opacity-0 transition-opacity duration-1000" aria-live="polite"></div>
+
+                        <h3 class="font-oswald text-sm tracking-[0.3em] text-gray-500 mb-8 text-center uppercase">Godziny Otwarcia</h3>
+                        <ul class="space-y-4 text-base text-gray-400 font-light">
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Wtorek:</span> <span class="text-white font-medium">15:00 - 00:00</span></li>
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Środa:</span> <span class="text-white font-medium">15:00 - 00:00</span></li>
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Czwartek:</span> <span class="text-white font-medium">15:00 - 00:00</span></li>
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Piątek:</span> <span class="text-white font-medium">15:00 - do ostatniego gościa!</span></li>
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Sobota:</span> <span class="text-white font-medium">15:00 - do ostatniego gościa!</span></li>
+                            <li class="flex justify-between border-b border-white/5 pb-3"><span>Niedziela:</span> <span class="text-white font-medium">15:00 - 00:00</span></li>
+                        </ul>
+                        <p class="mt-8 text-center text-sm font-bold font-oswald tracking-widest text-pub-red uppercase">Poniedziałek - ZAMKNIĘTE</p>
+                    </div>
+
+                    <script>
+                        (() => {
+                            'use strict';
+                            const updatePubStatus = () => {
+                                const statusContainer = document.getElementById('pub-status');
+                                if (!statusContainer) return;
+
+                                const parts = new Intl.DateTimeFormat("en-US", {
+                                    timeZone: "Europe/Warsaw",
+                                    year: 'numeric', month: 'numeric', day: 'numeric',
+                                    hour: 'numeric', minute: 'numeric', second: 'numeric',
+                                    hour12: false
+                                }).formatToParts(new Date());
+
+                                const getPart = (type) => parseInt(parts.find(p => p.type === type).value, 10);
+                                const warsawNow = new Date(getPart('year'), getPart('month') - 1, getPart('day'), getPart('hour') === 24 ? 0 : getPart('hour'), getPart('minute'), getPart('second'));
+
+                                const currentHour = warsawNow.getHours();
+                                const day = warsawNow.getDay();
+                                let logicalDay = day;
+                                let logicalHour = currentHour;
+                                if (currentHour < 6) { logicalDay = day === 0 ? 6 : day - 1; logicalHour += 24; }
+
+                                let isOpen = false;
+                                if ([2, 3, 4, 0].includes(logicalDay)) { if (logicalHour >= 15 && logicalHour < 24) isOpen = true; } 
+                                else if ([5, 6].includes(logicalDay)) { if (logicalHour >= 15 && logicalHour < 28) isOpen = true; }
+
+                                if (isOpen) {
+                                    statusContainer.innerHTML = `
+                                        <div class="relative flex h-4 w-4 mb-2">
+                                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pub-green opacity-75"></span>
+                                          <span class="relative inline-flex rounded-full h-4 w-4 bg-pub-green shadow-[0_0_15px_#00ff41]"></span>
+                                        </div>
+                                        <span class="font-oswald tracking-[0.2em] text-lg font-bold text-pub-green neon-green uppercase">Otwarte</span>
+                                        <span class="text-xs text-gray-500 font-light tracking-wide">Wpadaj na bar</span>
+                                    `;
+                                } else {
+                                    let nextOpen = new Date(warsawNow);
+                                    nextOpen.setHours(15, 0, 0, 0); 
+                                    while (true) { let d = nextOpen.getDay(); if (d !== 1 && nextOpen > warsawNow) break; nextOpen.setDate(nextOpen.getDate() + 1); }
+
+                                    const diffMs = nextOpen - warsawNow;
+                                    const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+                                    const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                                    
+                                    statusContainer.innerHTML = `
+                                        <div class="relative flex h-4 w-4 mb-2">
+                                          <span class="relative inline-flex rounded-full h-4 w-4 bg-pub-red shadow-[0_0_15px_#ff003c]"></span>
+                                        </div>
+                                        <span class="font-oswald tracking-[0.2em] text-lg font-bold text-pub-red neon-red uppercase">Zamknięte</span>
+                                        <span class="text-xs text-gray-500 font-light tracking-wide">Otwieramy za ${String(diffHrs).padStart(2, '0')}h ${String(diffMins).padStart(2, '0')}m</span>
+                                    `;
+                                }
+                                statusContainer.classList.remove('opacity-0');
+                            };
+                            updatePubStatus();
+                            setInterval(updatePubStatus, 10000);
+                        })();
+                    </script>
+                </aside>
+            </div>
+        </section>
+
+<section class="py-16 md:py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6 max-w-7xl relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+                    
+                    <article class="group relative rounded-3xl overflow-hidden h-[400px] flex flex-col justify-end bg-pub-menu border border-white/5 shadow-2xl transition-all duration-700 hover:border-pub-red/30">
+                        <img src="images/pool.png" alt="Bilard" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-1000 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-pub-dark via-pub-dark/60 to-transparent"></div>
+                        <div class="relative z-10 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-oswald text-4xl font-bold tracking-tighter text-white uppercase mb-3 neon-white">Bilard</h3>
+                            <p class="text-gray-400 font-light mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">3 profesjonalne stoły 9 ft. dla amatorów i turniejowych wyjadaczy.</p>
+                            <span class="inline-block text-pub-red font-oswald tracking-widest text-xs uppercase border border-pub-red/50 px-4 py-2 rounded-full">Sprzęt Turniejowy</span>
+                        </div>
+                    </article>
+                    
+                    <article class="group relative rounded-3xl overflow-hidden h-[400px] flex flex-col justify-end bg-pub-menu border border-white/5 shadow-2xl lg:-translate-y-8 transition-all duration-700 hover:border-pub-red/30">
+                        <img src="images/darts.png" alt="Dart" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-1000 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-pub-dark via-pub-dark/60 to-transparent"></div>
+                        <div class="relative z-10 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-oswald text-4xl font-bold tracking-tighter text-white uppercase mb-3 neon-red">Dart</h3>
+                            <p class="text-gray-400 font-light mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">6 klasycznych tarcz oraz 1 stanowisko z systemem online do gry ze światem.</p>
+                            <span class="inline-block text-pub-red font-oswald tracking-widest text-xs uppercase border border-pub-red/50 px-4 py-2 rounded-full">6 Tarcz + 1 Online</span>
+                        </div>
+                    </article>
+
+                    <article class="group relative rounded-3xl overflow-hidden h-[400px] flex flex-col justify-end bg-pub-menu border border-white/5 shadow-2xl transition-all duration-700 hover:border-pub-green/30">
+                        <img src="images/pub.png" alt="Projektor" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-1000 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-pub-dark via-pub-dark/60 to-transparent"></div>
+                        <div class="relative z-10 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-oswald text-4xl font-bold tracking-tighter text-white uppercase mb-3 neon-green">Strefa Kibica</h3>
+                            <p class="text-gray-400 font-light mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">Oglądaj Ligę Mistrzów, gale KSW i inne wydarzenia na wielkim ekranie.</p>
+                            <span class="inline-block text-pub-green font-oswald tracking-widest text-xs uppercase border border-pub-green/50 px-4 py-2 rounded-full">Transmisje na żywo</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="dojazd" class="container mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-16 border-t border-white/5">
+            <div class="w-full md:w-3/5 bg-pub-menu h-80 rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative group">
+                <div class="absolute inset-0 bg-pub-dark/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                <iframe 
+                    title="Mapa dojazdu do WBT Sports Pub"
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade" 
+                    src="https://maps.google.com/maps?q=ul.+Lubelska+78,+05-462+Wi%C4%85zowna&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    class="grayscale group-hover:grayscale-0 transition-all duration-500 relative z-0">
+                </iframe>
+            </div>
+            <address class="w-full md:w-2/5 not-italic">
+                <h3 class="font-oswald text-sm tracking-[0.3em] text-pub-red uppercase mb-4">Lokalizacja</h3>
+                <h4 class="font-oswald text-4xl font-bold text-white tracking-widest mb-6">WBT SPORTS PUB</h4>
+                <p class="text-gray-400 text-lg font-light mb-8 leading-relaxed">ul. Lubelska 78 | lokal nr 4 <br> 05-462 Wiązowna</p>
+                <div class="inline-flex items-center gap-3 bg-pub-green/10 border border-pub-green/30 text-pub-green px-6 py-3 rounded-full font-oswald tracking-[0.1em] uppercase text-sm">
+                    <span class="w-2 h-2 bg-pub-green rounded-full shadow-[0_0_10px_#00ff41]"></span>
+                    Darmowy parking na miejscu
+                </div>
+            </address>
+        </section>
+
+        <section id="menu" class="bg-pub-menu/50 border-t border-white/5 py-32 relative">
+            <div class="container mx-auto px-6">
+
+                <div class="text-center mb-16">
+                    <h3 class="font-oswald text-sm tracking-[0.3em] text-gray-500 uppercase mb-4">Nasze Specjalności</h3>
+                    <h4 class="font-oswald text-5xl font-bold text-white tracking-widest uppercase">Karta Drinków</h4>
+                </div>
+
+                <div class="flex items-center justify-between gap-4 mb-32 group" aria-roledescription="carousel">
+                    <button id="left-arrow" type="button" class="text-gray-600 hover:text-pub-red hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center w-12 h-12 flex-shrink-0 cursor-pointer z-20 focus:outline-none" aria-label="Przewiń w lewo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+
+                    <div id="carousel-container" class="overflow-hidden relative z-10 w-full">
+                        <div id="carousel-track" class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar py-12 cursor-grab active:cursor-grabbing">
+                            <article class="carousel-item min-w-[100%] md:min-w-[33.333%] px-4 snap-center flex-shrink-0 select-none">
+                                <div class="carousel-card bg-pub-dark/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center hover:bg-pub-dark transition-colors duration-500 transform origin-center shadow-2xl">
+                                    <img src="images/aperol.png" alt="APEROL SPRITZ" class="mx-auto rounded-full w-48 h-48 object-cover mb-8 pointer-events-none ring-1 ring-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    <h4 class="font-oswald text-2xl tracking-[0.15em] uppercase text-white mb-2">APEROL SPRITZ</h4>
+                                    <p class="text-sm text-pub-red font-light tracking-widest">Klasyk</p>
+                                </div>
+                            </article>
+
+                            <article class="carousel-item min-w-[100%] md:min-w-[33.333%] px-4 snap-center flex-shrink-0 select-none">
+                                <div class="carousel-card bg-pub-dark/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center hover:bg-pub-dark transition-colors duration-500 transform origin-center shadow-2xl">
+                                    <img src="images/blue_margarita.png" alt="BLUE MARGARITA" class="mx-auto rounded-full w-48 h-48 object-cover mb-8 pointer-events-none ring-1 ring-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    <h4 class="font-oswald text-2xl tracking-[0.15em] uppercase text-white mb-2">BLUE MARGARITA</h4>
+                                    <p class="text-sm text-blue-400 font-light tracking-widest">Margarita ale niebieska</p>
+                                </div>
+                            </article>
+
+                            <article class="carousel-item min-w-[100%] md:min-w-[33.333%] px-4 snap-center flex-shrink-0 select-none">
+                                <div class="carousel-card bg-pub-dark/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center hover:bg-pub-dark transition-colors duration-500 transform origin-center shadow-2xl">
+                                    <img src="images/whisky_sour.png" alt="WHISKY SOUR" class="mx-auto rounded-full w-48 h-48 object-cover mb-8 pointer-events-none ring-1 ring-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    <h4 class="font-oswald text-2xl tracking-[0.15em] uppercase text-white mb-2">WHISKY SOUR</h4>
+                                    <p class="text-sm text-yellow-500 font-light tracking-widest">Kwaśna Whisky</p>
+                                </div>
+                            </article>
+
+                            <article class="carousel-item min-w-[100%] md:min-w-[33.333%] px-4 snap-center flex-shrink-0 select-none">
+                                <div class="carousel-card bg-pub-dark/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center hover:bg-pub-dark transition-colors duration-500 transform origin-center shadow-2xl">
+                                    <img src="images/sex_on_the_beach.png" alt="SEX ON THE BEACH" class="mx-auto rounded-full w-48 h-48 object-cover mb-8 pointer-events-none ring-1 ring-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    <h4 class="font-oswald text-2xl tracking-[0.15em] uppercase text-white mb-2">SEX ON THE BEACH</h4>
+                                    <p class="text-sm text-orange-500 font-light tracking-widest">Klasyk Gatunku</p>
+                                </div>
+                            </article>
+
+                            <article class="carousel-item min-w-[100%] md:min-w-[33.333%] px-4 snap-center flex-shrink-0 select-none">
+                                <div class="carousel-card bg-pub-dark/50 backdrop-blur-md border border-white/5 rounded-3xl p-8 text-center hover:bg-pub-dark transition-colors duration-500 transform origin-center shadow-2xl">
+                                    <img src="images/strawberry_margarita.png" alt="STRAWBERRY MARGARITA" class="mx-auto rounded-full w-48 h-48 object-cover mb-8 pointer-events-none ring-1 ring-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                                    <h4 class="font-oswald text-2xl tracking-[0.15em] uppercase text-white mb-2">STRAWBERRY MARGARITA</h4>
+                                    <p class="text-sm text-pub-red font-light tracking-widest">Słodko-Kwaśna</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <button id="right-arrow" type="button" class="text-gray-600 hover:text-pub-red hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center w-12 h-12 flex-shrink-0 cursor-pointer z-20 focus:outline-none" aria-label="Przewiń w prawo">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+                    
+                    <div class="space-y-16">
+                        <section>
+                            <h3 class="font-oswald text-2xl tracking-[0.2em] text-white/50 border-b border-white/10 pb-4 mb-8">ZESTAWY</h3>
+                            <dl class="space-y-4">
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">COOLER STUMBRASA</dt> <dd class="font-oswald text-pub-red tracking-widest">200 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">ZESTAW JACK DANIELS</dt> <dd class="font-oswald text-pub-red tracking-widest">250 zł</dd></div>
+                            </dl>
+                        </section>
+                        <section>
+                            <h3 class="font-oswald text-2xl tracking-[0.2em] text-white/50 border-b border-white/10 pb-4 mb-8">PIWA</h3>
+                            <dl class="space-y-4">
+                                <div class="flex justify-between items-baseline">
+                                    <dt class="text-lg tracking-wide text-white">PIWO Z BECZKI <span class="block text-xs text-gray-500 font-light mt-1 tracking-normal">Miłosław Pilzner, Miłosław Marcowe</span></dt> 
+                                    <dd class="font-oswald text-pub-red tracking-widest">15 zł</dd>
+                                </div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">WBT RADLER</dt> <dd class="font-oswald text-pub-red tracking-widest">15 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">PIWO BUTELKOWE</dt> <dd class="font-oswald text-pub-red tracking-widest">18 zł</dd></div>
+                            </dl>
+                        </section>
+                    </div>
+
+                    <div class="space-y-16">
+						<div class="hidden lg:flex justify-center mb-12" aria-hidden="true">
+							<img src="images/LOGO1.png" alt="WBT Sports Pub Logo" class="w-48 h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:scale-105 transition-transform duration-500">
+						</div>
+                        <section>
+                            <h3 class="font-oswald text-2xl tracking-[0.2em] text-white/50 border-b border-white/10 pb-4 mb-8">PRZEKĄSKI</h3>
+                            <dl class="space-y-4">
+                                <div class="flex justify-between items-baseline">
+                                    <dt class="text-lg tracking-wide text-white">NACHOSY NA CIEPŁO <span class="block text-xs text-gray-500 font-light mt-1 tracking-normal">(jalapeno, ser, salsa)</span></dt> 
+                                    <dd class="font-oswald text-pub-red tracking-widest">25 zł</dd>
+                                </div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">FRYTKI MAŁE / DUŻE</dt> <dd class="font-oswald text-pub-red tracking-widest">8 / 15 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">TOSTY CHORIZO</dt> <dd class="font-oswald text-pub-red tracking-widest">15 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">DESKA PRZEKĄSEK</dt> <dd class="font-oswald text-pub-red tracking-widest">40 zł</dd></div>
+                            </dl>
+                        </section>
+                    </div>
+
+                    <div class="space-y-16">
+                        <section>
+                            <h3 class="font-oswald text-2xl tracking-[0.2em] text-white/50 border-b border-white/10 pb-4 mb-8">DRINKI</h3>
+                            <dl class="space-y-4">
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">STRONG WBT</dt> <dd class="font-oswald text-pub-red tracking-widest">35 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">LADY WBT</dt> <dd class="font-oswald text-pub-red tracking-widest">35 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">MALIBU SURFER</dt> <dd class="font-oswald text-pub-red tracking-widest">32 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">APEROL SPRITZ</dt> <dd class="font-oswald text-pub-red tracking-widest">30 zł</dd></div>
+                                <div class="flex justify-between items-baseline"><dt class="text-lg tracking-wide text-white">WHISKY / WÓDKA SOUR</dt> <dd class="font-oswald text-pub-red tracking-widest">30 zł</dd></div>
+                            </dl>
+                        </section>
+                        <section class="bg-pub-dark/50 p-8 rounded-2xl border border-white/5 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-pub-green/5 group-hover:bg-pub-green/10 transition-colors duration-500"></div>
+                            <h3 class="font-oswald text-xl tracking-[0.2em] text-pub-green mb-6 relative z-10">ROZRYWKA</h3>
+                            <dl class="space-y-3 relative z-10">
+                                <div class="flex justify-between text-base text-gray-300"><dt>Bilard 1h (naliczanie min.)</dt> <dd class="font-oswald text-white tracking-wider">40 zł</dd></div>
+                                <div class="flex justify-between text-base text-gray-300"><dt>Darty 1h (naliczanie min.)</dt> <dd class="font-oswald text-white tracking-wider">10 zł</dd></div>
+                            </dl>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="rezerwacja" class="bg-pub-dark py-24 text-center border-t border-white/5 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-pub-red to-transparent opacity-50"></div>
+        
+        <h2 class="font-oswald text-4xl md:text-5xl font-bold text-white tracking-[0.2em] mb-12 uppercase">Zarezerwuj <span class="text-pub-red neon-red">Stolik</span></h2>
+        
+        <form class="flex flex-col md:flex-row justify-center items-center gap-6 mb-24 px-6 max-w-4xl mx-auto" action="#" method="POST">
+            <select aria-label="Wielkość grupy" class="bg-pub-menu border border-white/10 px-6 py-4 rounded-lg text-white w-full md:w-auto focus:ring-1 focus:ring-pub-red focus:outline-none appearance-none tracking-wide">
+                <option value="2">Ilość gości: 2 osoby</option>
+                <option value="4">4 osoby</option>
+                <option value="6">6+ osób</option>
+            </select>
+            <input type="date" aria-label="Data rezerwacji" class="bg-pub-menu border border-white/10 px-6 py-4 rounded-lg text-white w-full md:w-auto focus:ring-1 focus:ring-pub-red focus:outline-none tracking-wide" value="2026-03-08">
+            <select aria-label="Godzina rezerwacji" class="bg-pub-menu border border-white/10 px-6 py-4 rounded-lg text-white w-full md:w-auto focus:ring-1 focus:ring-pub-red focus:outline-none appearance-none tracking-wide">
+                <option value="19:00">Godzina: 19:00</option>
+                <option value="20:00">Godzina: 20:00</option>
+            </select>
+            <button type="submit" class="bg-pub-red hover:bg-red-700 text-white font-oswald tracking-[0.2em] px-12 py-4 rounded-lg transition-colors focus:ring-2 focus:ring-white focus:outline-none uppercase">Rezerwuj</button>
+        </form>
+
+        <div class="container mx-auto px-6 text-white text-sm flex flex-col md:flex-row justify-between items-end text-left border-t border-white/5 pt-12">
+            <address class="not-italic">
+                <p class="font-oswald text-2xl tracking-[0.2em] mb-4 text-white">WBT SPORTS PUB</p>
+                <p class="text-gray-500 font-light mb-6">ul. Lubelska 78/4, 05-462 Wiązowna</p>
+                <p class="text-gray-500 font-light">Pn. - ZAMKNIĘTE</p>
+                <p class="text-gray-500 font-light">Wt-Czw, Nd: 15:00 - 00:00</p>
+                <p class="text-gray-500 font-light">Pt-Sb: - od 15:00 do oporu!</p>
+            </address>
+   <div class="flex gap-8 mt-10 md:mt-0 font-oswald tracking-[0.2em] text-lg">
+    <a href="https://www.instagram.com/wbt_sport_pub/et" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-pub-red transition-colors" aria-label="Instagram">IG</a> 
+    <a href="https://www.facebook.com/profile.php?id=61562419252963" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition-colors" aria-label="Facebook">FB</a> 
+</div>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            'use strict';
+            document.addEventListener("DOMContentLoaded", () => {
+                const track = document.getElementById('carousel-track');
+                const leftArrow = document.getElementById('left-arrow');
+                const rightArrow = document.getElementById('right-arrow');
+                if (!track) return;
+
+                const originalItems = Array.from(track.querySelectorAll('.carousel-item'));
+                const cloneMultiplier = 5; 
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < cloneMultiplier; i++) {
+                    originalItems.forEach(item => fragment.appendChild(item.cloneNode(true)));
+                }
+                track.appendChild(fragment);
+
+                const allItems = Array.from(track.querySelectorAll('.carousel-item'));
+                const cards = allItems.map(item => item.querySelector('.carousel-card'));
+
+                let itemWidth = 0, totalOriginalWidth = 0, cachedTrackCenter = 0, cachedMaxDistance = 0;
+                let isDown = false, startX = 0, scrollLeft = 0, isScrolling, isTicking = false;
+
+                const updateScale = () => {
+                    const rects = allItems.map(item => item.getBoundingClientRect());
+                    rects.forEach((itemRect, i) => {
+                        const itemCenter = itemRect.left + itemRect.width / 2;
+                        const distance = Math.abs(cachedTrackCenter - itemCenter);
+                        let scale = 1.1 - (distance / cachedMaxDistance) * 0.2;
+                        scale = Math.max(0.9, Math.min(scale, 1.1)); 
+                        let opacity = 1 - (distance / cachedMaxDistance) * 0.5;
+                        opacity = Math.max(0.3, Math.min(opacity, 1)); 
+
+                        cards[i].style.transform = `scale(${scale})`;
+                        cards[i].style.opacity = opacity;
+                        
+                        // Dodatkowy glow dla aktywnej karty
+                        if (scale > 1.05) {
+                            cards[i].classList.add('border-white/20');
+                            cards[i].classList.remove('border-white/5');
+                        } else {
+                            cards[i].classList.remove('border-white/20');
+                            cards[i].classList.add('border-white/5');
+                        }
+                    });
+                };
+
+                const setupDimensions = () => {
+                    const trackRect = track.getBoundingClientRect();
+                    cachedTrackCenter = trackRect.left + trackRect.width / 2;
+                    itemWidth = allItems[0].offsetWidth;
+                    cachedMaxDistance = itemWidth;
+                    totalOriginalWidth = itemWidth * originalItems.length;
+                    track.style.scrollBehavior = 'auto';
+                    track.scrollLeft = totalOriginalWidth * Math.floor(cloneMultiplier / 2);
+                    updateScale();
+                };
+
+                setTimeout(setupDimensions, 50);
+
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(setupDimensions, 150);
+                });
+
+                const enforceInfinity = () => {
+                    const currentScroll = track.scrollLeft;
+                    const maxSafeScroll = totalOriginalWidth * (cloneMultiplier - 1);
+                    const minSafeScroll = totalOriginalWidth;
+                    if (currentScroll >= maxSafeScroll) { track.style.scrollBehavior = 'auto'; track.scrollLeft -= totalOriginalWidth * 2; } 
+                    else if (currentScroll <= minSafeScroll) { track.style.scrollBehavior = 'auto'; track.scrollLeft += totalOriginalWidth * 2; }
+                };
+
+                const slide = (direction) => {
+                    track.style.scrollBehavior = 'smooth';
+                    track.scrollBy({ left: direction === 'right' ? itemWidth : -itemWidth });
+                };
+
+                if (rightArrow) rightArrow.addEventListener('click', () => slide('right'));
+                if (leftArrow) leftArrow.addEventListener('click', () => slide('left'));
+
+                track.addEventListener('pointerdown', (e) => {
+                    isDown = true;
+                    track.style.scrollSnapType = 'none';
+                    track.style.scrollBehavior = 'auto';
+                    startX = e.pageX - track.offsetLeft;
+                    scrollLeft = track.scrollLeft;
+                    track.setPointerCapture(e.pointerId);
+                });
+
+                const stopDragging = (e) => {
+                    if (!isDown) return;
+                    isDown = false;
+                    track.style.scrollSnapType = 'x mandatory';
+                    track.scrollBy({ left: 1 }); track.scrollBy({ left: -1 });
+                    track.releasePointerCapture(e.pointerId);
+                };
+
+                track.addEventListener('pointerup', stopDragging);
+                track.addEventListener('pointercancel', stopDragging);
+                track.addEventListener('pointermove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault(); 
+                    const x = e.pageX - track.offsetLeft;
+                    const walk = (x - startX) * 1.5; 
+                    track.scrollLeft = scrollLeft - walk;
+                    updateScale();
+                });
+
+                track.addEventListener('scroll', () => {
+                    if (!isTicking) {
+                        window.requestAnimationFrame(() => { updateScale(); isTicking = false; });
+                        isTicking = true;
+                    }
+                    window.clearTimeout(isScrolling);
+                    isScrolling = setTimeout(() => { if (!isDown) enforceInfinity(); updateScale(); }, 150);
+                }, { passive: true });
+            });
+        })();
+    </script>
+</body>
+</html>
