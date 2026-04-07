@@ -542,11 +542,17 @@
         
         <h2 class="font-oswald text-4xl md:text-5xl font-bold text-white tracking-[0.2em] mb-12 uppercase">Zarezerwuj <span class="text-pub-red neon-red">Stolik</span></h2>
         
-       <div class="flex justify-center mb-24 px-6">
-            <button id="call-to-book-btn" class="group relative flex flex-col items-center justify-center bg-pub-red hover:bg-red-700 text-white font-oswald px-12 py-6 rounded-xl transition-all duration-300 focus:outline-none min-w-[320px] shadow-[0_0_20px_rgba(255,0,60,0.4)] hover:shadow-[0_0_30px_rgba(255,0,60,0.6)]">
-                <span class="text-2xl tracking-[0.2em] uppercase font-bold">Zarezerwuj Stolik</span>
-                <span class="text-xs text-white/80 tracking-[0.1em] mt-2 font-light uppercase">Kliknij, aby się połączyć</span>
-            </button>
+      <div class="flex justify-center mb-24 px-6">
+            
+            <a href="tel:515078205" class="md:hidden group relative flex items-center justify-center bg-pub-red hover:bg-red-700 text-white font-oswald px-12 py-5 rounded-xl transition-all duration-300 min-w-[280px] shadow-[0_0_20px_rgba(255,0,60,0.4)]">
+                <span class="text-3xl tracking-[0.2em] uppercase font-bold">Zadzwoń</span>
+            </a>
+
+            <div class="hidden md:flex flex-col items-center justify-center border border-white/5 bg-pub-dark/50 px-16 py-8 rounded-2xl">
+                <span class="text-sm text-pub-red tracking-[0.2em] mb-3 font-light uppercase">Zarezerwuj telefonicznie</span>
+                <a href="tel:515078205" class="font-oswald text-5xl font-bold tracking-widest text-white hover:text-gray-300 transition-colors pointer-events-auto">515 078 205</a>
+            </div>
+
         </div>
 
         <div class="container mx-auto px-6 text-white text-sm flex flex-col md:flex-row justify-between items-end text-left border-t border-white/5 pt-12">
@@ -685,40 +691,6 @@
             });
         })();
     </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const callBtn = document.getElementById('call-to-book-btn');
-            
-            // TUTAJ WPISZ PRAWDZIWY NUMER PUBU
-            const pubPhoneNumber = '515078205'; 
-            const displayPhoneNumber = '515 078 205';
-            
-            if (callBtn) {
-                callBtn.addEventListener('click', (e) => {
-                    // Wykrywanie czy urządzenie to telefon/tablet
-                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    
-                    if (isMobile) {
-                        // Jeśli telefon -> uruchom dzwonienie
-                        window.location.href = `tel:${pubPhoneNumber}`;
-                    } else {
-                        // Jeśli komputer -> zapobiegnij standardowemu działaniu i pokaż numer
-                        e.preventDefault();
-                        
-                        // Podmiana zawartości przycisku na wizytówkę
-                        callBtn.innerHTML = `
-                            <span class="text-sm text-pub-red tracking-[0.2em] mb-2 font-light uppercase">Zarezerwuj telefonicznie</span>
-                            <span class="text-4xl font-bold tracking-widest text-white">${displayPhoneNumber}</span>
-                        `;
-                        
-                        // Zmiana stylów (gasimy czerwone tło, dajemy mroczną ramkę)
-                        callBtn.classList.remove('bg-pub-red', 'hover:bg-red-700', 'shadow-[0_0_20px_rgba(255,0,60,0.4)]', 'hover:shadow-[0_0_30px_rgba(255,0,60,0.6)]');
-                        callBtn.classList.add('bg-pub-dark', 'border', 'border-pub-red', 'cursor-default');
-                    }
-                });
-            }
-        });
-    </script>
+    
 </body>
 </html>
