@@ -571,7 +571,7 @@
         </div>
     </footer>
 
-   <script>
+  <script>
         (() => {
             'use strict';
             document.addEventListener("DOMContentLoaded", () => {
@@ -612,7 +612,6 @@
                     });
                 };
 
-                // Początkowe ustawienie (z lekkim opóźnieniem, żeby CSS zdążył się załadować)
                 setTimeout(() => {
                     track.scrollLeft = (track.scrollWidth - track.clientWidth) / 2;
                     updateScale();
@@ -620,7 +619,7 @@
 
                 window.addEventListener('resize', updateScale);
 
-                // Obsługa strzałek na komputerach
+                // Obsługa strzałek na desktopie
                 const slide = (direction) => {
                     const itemWidth = allItems[0].offsetWidth;
                     track.scrollBy({ left: direction === 'right' ? itemWidth : -itemWidth, behavior: 'smooth' });
@@ -629,7 +628,7 @@
                 if (rightArrow) rightArrow.addEventListener('click', () => slide('right'));
                 if (leftArrow) leftArrow.addEventListener('click', () => slide('left'));
 
-                // Płynny nasłuch natywnego scrolla (idealny dla telefonów)
+                // Natywny scroll dla powiększania (działa super na mobile)
                 let isTicking = false;
                 track.addEventListener('scroll', () => {
                     if (!isTicking) {
@@ -640,6 +639,45 @@
                         isTicking = true;
                     }
                 }, { passive: true });
+
+
+                // --- DESKTOP DRAG (Tylko myszka - telefony to ignorują) ---
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                track.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    track.style.scrollBehavior = 'auto'; // Wyłącza płynność na czas ciągnięcia
+                    track.style.scrollSnapType = 'none'; // Odblokowuje sztywne ramy
+                    startX = e.pageX - track.offsetLeft;
+                    scrollLeft = track.scrollLeft;
+                    track.style.cursor = 'grabbing';
+                });
+
+                track.addEventListener('mouseleave', () => {
+                    if(!isDown) return;
+                    isDown = false;
+                    track.style.scrollSnapType = 'x mandatory';
+                    track.style.cursor = 'grab';
+                });
+
+                track.addEventListener('mouseup', () => {
+                    isDown = false;
+                    track.style.scrollSnapType = 'x mandatory';
+                    track.style.cursor = 'grab';
+                    // Wymuszenie "dociągnięcia" do środka po puszczeniu myszki
+                    track.scrollBy({left: 1}); 
+                    track.scrollBy({left: -1});
+                });
+
+                track.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - track.offsetLeft;
+                    const walk = (x - startX) * 1.5; // Mnożnik szybkości przeciągania
+                    track.scrollLeft = scrollLeft - walk;
+                });
             });
         })();
     </script>
