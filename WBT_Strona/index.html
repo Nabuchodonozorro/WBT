@@ -571,7 +571,7 @@
         </div>
     </footer>
 
-    <script>
+   <script>
         (() => {
             'use strict';
             document.addEventListener("DOMContentLoaded", () => {
@@ -580,34 +580,28 @@
                 const rightArrow = document.getElementById('right-arrow');
                 if (!track) return;
 
-                const originalItems = Array.from(track.querySelectorAll('.carousel-item'));
-                const cloneMultiplier = 5; 
-                const fragment = document.createDocumentFragment();
-                for (let i = 0; i < cloneMultiplier; i++) {
-                    originalItems.forEach(item => fragment.appendChild(item.cloneNode(true)));
-                }
-                track.appendChild(fragment);
-
                 const allItems = Array.from(track.querySelectorAll('.carousel-item'));
                 const cards = allItems.map(item => item.querySelector('.carousel-card'));
 
-                let itemWidth = 0, totalOriginalWidth = 0, cachedTrackCenter = 0, cachedMaxDistance = 0;
-                let isDown = false, startX = 0, scrollLeft = 0, isScrolling, isTicking = false;
-
+                // Płynne wyliczanie środka i powiększanie aktywnej karty
                 const updateScale = () => {
-                    const rects = allItems.map(item => item.getBoundingClientRect());
-                    rects.forEach((itemRect, i) => {
+                    const trackRect = track.getBoundingClientRect();
+                    const trackCenter = trackRect.left + trackRect.width / 2;
+                    const maxDistance = allItems[0].offsetWidth || 300;
+
+                    allItems.forEach((item, i) => {
+                        const itemRect = item.getBoundingClientRect();
                         const itemCenter = itemRect.left + itemRect.width / 2;
-                        const distance = Math.abs(cachedTrackCenter - itemCenter);
-                        let scale = 1.1 - (distance / cachedMaxDistance) * 0.2;
+                        const distance = Math.abs(trackCenter - itemCenter);
+                        
+                        let scale = 1.1 - (distance / maxDistance) * 0.2;
                         scale = Math.max(0.9, Math.min(scale, 1.1)); 
-                        let opacity = 1 - (distance / cachedMaxDistance) * 0.5;
+                        let opacity = 1 - (distance / maxDistance) * 0.5;
                         opacity = Math.max(0.3, Math.min(opacity, 1)); 
 
                         cards[i].style.transform = `scale(${scale})`;
                         cards[i].style.opacity = opacity;
                         
-                        // Dodatkowy glow dla aktywnej karty
                         if (scale > 1.05) {
                             cards[i].classList.add('border-white/20');
                             cards[i].classList.remove('border-white/5');
@@ -618,76 +612,33 @@
                     });
                 };
 
-                const setupDimensions = () => {
-                    const trackRect = track.getBoundingClientRect();
-                    cachedTrackCenter = trackRect.left + trackRect.width / 2;
-                    itemWidth = allItems[0].offsetWidth;
-                    cachedMaxDistance = itemWidth;
-                    totalOriginalWidth = itemWidth * originalItems.length;
-                    track.style.scrollBehavior = 'auto';
-                    track.scrollLeft = totalOriginalWidth * Math.floor(cloneMultiplier / 2);
+                // Początkowe ustawienie (z lekkim opóźnieniem, żeby CSS zdążył się załadować)
+                setTimeout(() => {
+                    track.scrollLeft = (track.scrollWidth - track.clientWidth) / 2;
                     updateScale();
-                };
+                }, 150);
 
-                setTimeout(setupDimensions, 50);
+                window.addEventListener('resize', updateScale);
 
-                let resizeTimeout;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(setupDimensions, 150);
-                });
-
-                const enforceInfinity = () => {
-                    const currentScroll = track.scrollLeft;
-                    const maxSafeScroll = totalOriginalWidth * (cloneMultiplier - 1);
-                    const minSafeScroll = totalOriginalWidth;
-                    if (currentScroll >= maxSafeScroll) { track.style.scrollBehavior = 'auto'; track.scrollLeft -= totalOriginalWidth * 2; } 
-                    else if (currentScroll <= minSafeScroll) { track.style.scrollBehavior = 'auto'; track.scrollLeft += totalOriginalWidth * 2; }
-                };
-
+                // Obsługa strzałek na komputerach
                 const slide = (direction) => {
-                    track.style.scrollBehavior = 'smooth';
-                    track.scrollBy({ left: direction === 'right' ? itemWidth : -itemWidth });
+                    const itemWidth = allItems[0].offsetWidth;
+                    track.scrollBy({ left: direction === 'right' ? itemWidth : -itemWidth, behavior: 'smooth' });
                 };
 
                 if (rightArrow) rightArrow.addEventListener('click', () => slide('right'));
                 if (leftArrow) leftArrow.addEventListener('click', () => slide('left'));
 
-                track.addEventListener('pointerdown', (e) => {
-                    isDown = true;
-                    track.style.scrollSnapType = 'none';
-                    track.style.scrollBehavior = 'auto';
-                    startX = e.pageX - track.offsetLeft;
-                    scrollLeft = track.scrollLeft;
-                    track.setPointerCapture(e.pointerId);
-                });
-
-                const stopDragging = (e) => {
-                    if (!isDown) return;
-                    isDown = false;
-                    track.style.scrollSnapType = 'x mandatory';
-                    track.scrollBy({ left: 1 }); track.scrollBy({ left: -1 });
-                    track.releasePointerCapture(e.pointerId);
-                };
-
-                track.addEventListener('pointerup', stopDragging);
-                track.addEventListener('pointercancel', stopDragging);
-                track.addEventListener('pointermove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault(); 
-                    const x = e.pageX - track.offsetLeft;
-                    const walk = (x - startX) * 1.5; 
-                    track.scrollLeft = scrollLeft - walk;
-                    updateScale();
-                });
-
+                // Płynny nasłuch natywnego scrolla (idealny dla telefonów)
+                let isTicking = false;
                 track.addEventListener('scroll', () => {
                     if (!isTicking) {
-                        window.requestAnimationFrame(() => { updateScale(); isTicking = false; });
+                        window.requestAnimationFrame(() => { 
+                            updateScale(); 
+                            isTicking = false; 
+                        });
                         isTicking = true;
                     }
-                    window.clearTimeout(isScrolling);
-                    isScrolling = setTimeout(() => { if (!isDown) enforceInfinity(); updateScale(); }, 150);
                 }, { passive: true });
             });
         })();
